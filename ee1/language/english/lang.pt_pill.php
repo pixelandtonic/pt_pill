@@ -1,6 +1,6 @@
 <?php
 
-$lang = array(
+$L = array(
 
 'pt_pill_options' => 'Pill Options',
 
