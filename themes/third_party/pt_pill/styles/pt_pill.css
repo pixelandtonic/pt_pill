@@ -1,0 +1,6 @@
+ul.ptPill { display: inline-block; margin: 0; padding: 0; list-style-type: none; line-height: 1; color: #000; border: 1px solid; border-color: #999 #808080 #666; -webkit-border-radius: 4px; -moz-border-radius: 4px; background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#d3d9e1)); cursor: default; -webkit-user-select: none; -moz-user-select: none; }
+ul.ptPill li { display: inline-block; margin: 0; padding: 3px 7px; }
+ul.ptPill li:first-child { -webkit-border-top-left-radius: 3px; -webkit-border-bottom-left-radius: 3px; -moz-border-radius: 3px 0 0 3px; }
+ul.ptPill li:last-child { -webkit-border-top-right-radius: 3px; -webkit-border-bottom-right-radius: 3px; -moz-border-radius: 0 3px 3px 0; }
+ul.ptPill li:not(:first-child) { border-left: 1px solid #8c98a2; }
+ul.ptPill li.selected { text-shadow: rgba(255,255,255,0.5) 0 1px; background: #bacce5; background: -webkit-gradient(linear, 0 0, 0 100%, from(#99a8bd), to(#bacce5)); }
