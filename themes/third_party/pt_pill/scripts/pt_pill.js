@@ -19,7 +19,7 @@ ptPill = function($select){
 		$ul = $('<ul class="pt-pill" tabindex="0" />').insertAfter($select),
 		$selected;
 
-	$options.each(function(){
+	$options.each(function(index){
 		var $option = $(this),
 			$li = $('<li />').appendTo($ul).html($option.html());
 
