@@ -9,8 +9,8 @@ ul.pt-pill li:first-child { -webkit-border-top-left-radius: 3px; -webkit-border-
 ul.pt-pill li:last-child { -webkit-border-top-right-radius: 3px; -webkit-border-bottom-right-radius: 3px; -moz-border-radius: 0 3px 3px 0; }
 
 ul.pt-pill li.selected { background: #fff; position: relative; z-index: 1;
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#f2f2f2));
-	background: -moz-linear-gradient(top, #fff, #f2f2f2);
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#fff));
+	background: -moz-linear-gradient(top, #f2f2f2, #fff);
 	-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
 	-moz-box-shadow: 0 0 2px rgba(0,0,0,0.1); }
 
