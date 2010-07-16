@@ -1,17 +1,16 @@
 ul.pt-pill { display: inline-block; margin: 5px 0; padding: 0; list-style-type: none; height: 18px; cursor: default;
 	-webkit-user-select: none; -moz-user-select: none; }
 
-ul.pt-pill li { float: left; margin: 0 -1px 0 0; padding: 0 7px; border: 1px solid #a8b1b3; line-height: 18px; text-shadow: 0 1px #fff; background: #dcdcdc url(../images/pill_bg.gif) repeat-x;
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0.08)), to(rgba(0,0,0,0.14)));
-	background: -moz-linear-gradient(top, transparent, rgba(0,0,0,0.06)); }
+ul.pt-pill li { float: left; margin: 0 -1px 0 0; padding: 0 7px; border: 1px solid #a8b1b3; line-height: 18px; background: #fff url(../images/option_bg.gif) repeat-x; }
 
 ul.pt-pill li:first-child { -webkit-border-top-left-radius: 3px; -webkit-border-bottom-left-radius: 3px; -moz-border-radius: 3px 0 0 3px; }
 ul.pt-pill li:last-child { -webkit-border-top-right-radius: 3px; -webkit-border-bottom-right-radius: 3px; -moz-border-radius: 0 3px 3px 0; }
 
-ul.pt-pill li.selected { background: #fff; position: relative; z-index: 1;
-	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#fff));
-	background: -moz-linear-gradient(top, #f2f2f2, #fff);
-	-webkit-box-shadow: 0 0 2px rgba(0,0,0,0.1);
-	-moz-box-shadow: 0 0 2px rgba(0,0,0,0.1); }
+ul.pt-pill li.selected { background: #fff; position: relative; z-index: 1; text-shadow: 0 1px #fff;
+	background: url(../images/selected_bg.gif) repeat-x;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(0,0,0,0.15)), to(rgba(0,0,0,0.1)));
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.15), rgba(0,0,0,0.1));
+	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.1);
+	-moz-box-shadow: inset 0 1px rgba(0,0,0,0.1); }
 
 .matrix ul.pt-pill { margin: 0; }
