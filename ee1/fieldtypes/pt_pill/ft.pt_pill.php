@@ -16,6 +16,16 @@ class Pt_pill extends Fieldframe_Fieldtype {
 		'versions_xml_url' => 'http://pixelandtonic.com/ee/versions.xml'
 	);
 
+	/**
+	 * P&T Pill Constructor
+	 */
+	function Pt_pill()
+	{
+		$this->default_field_settings = $this->default_cell_settings = array(
+			'options' => array()
+		);
+	}
+
 	// --------------------------------------------------------------------
 
 	/**
@@ -68,15 +78,13 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	{
 		global $DSP, $LANG;
 
-		$options = isset($data['options']) ? $data['options'] : array();
-
 		return array('rows' => array(array(
 			$DSP->qdiv('defaultBold', $LANG->line('pt_pill_options'))
 				. $DSP->qdiv('itemWrapper',
 					$LANG->line('field_list_instructions') . '<br /><br />'
 					. $LANG->line('option_setting_examples')
 				),
-			'<textarea id="pt_pill_options" name="options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($options).'</textarea>'
+			'<textarea id="pt_pill_options" name="options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($data['options']).'</textarea>'
 		)));
 
 		return array('rows' => $rows);
@@ -89,11 +97,9 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	{
 		global $LANG;
 
-		$options = isset($data['options']) ? $data['options'] : array();
-
 		return array(array(
 			$LANG->line('pt_pill_options'),
-			'<textarea class="matrix-textarea" name="options" rows="4">'.$this->_options_setting($options).'</textarea>'
+			'<textarea class="matrix-textarea" name="options" rows="4">'.$this->_options_setting($data['options']).'</textarea>'
 		));
 	}
 
