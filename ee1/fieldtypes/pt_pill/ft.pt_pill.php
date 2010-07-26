@@ -12,7 +12,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 
 	var $info = array(
 		'name'             => 'P&amp;T Pill',
-		'version'          => '1.0',
+		'version'          => '1.0.1',
 		'versions_xml_url' => 'http://pixelandtonic.com/ee/versions.xml'
 	);
 
