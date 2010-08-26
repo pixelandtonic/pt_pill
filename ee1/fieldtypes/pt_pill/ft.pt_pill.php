@@ -104,6 +104,21 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	}
 
 	/**
+	 * Display Var Settings
+	 */
+	function display_var_settings($data)
+	{
+		global $LANG;
+
+		return array(array(
+			$LANG->line('pt_pill_options') . '<br /><br />'
+			. $LANG->line('option_setting_examples'),
+
+			'<textarea id="pt_pill_options" name="pt_pill_options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($data['options']).'</textarea>'
+		));
+	}
+
+	/**
 	 * Options Setting Value
 	 */
 	private function _options_setting($options)
@@ -139,6 +154,19 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	{
 		return $this->save_field_settings($data);
 	}
+
+	/**
+	 * Save Var Settings
+	 */
+	function save_var_settings($data)
+	{
+		global $IN;
+
+		$data['options'] = $IN->GBL('pt_pill_options', 'POST');
+
+		return $this->save_field_settings($data);
+	}
+
 
 	/**
 	 * Save Options Setting
@@ -196,5 +224,13 @@ class Pt_pill extends Fieldframe_Fieldtype {
 		$this->_include_theme_js('scripts/matrix2.js');
 
 		return $this->display_field($cell_name, $data, $settings, TRUE);
+	}
+
+	/**
+	 * Display variable field
+	 */
+	function display_var_field($cell_name, $data, $settings)
+	{
+		return $this->display_field($cell_name, $data, $settings);
 	}
 }

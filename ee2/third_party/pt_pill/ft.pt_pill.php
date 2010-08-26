@@ -130,6 +130,24 @@ class Pt_pill_ft extends EE_Fieldtype {
 	}
 
 	/**
+	 * Display Var Settings
+	 */
+	function display_var_settings($data)
+	{
+		// load the language file
+		$this->EE->lang->loadfile('pt_pill');
+
+		$options = isset($data['options']) ? $data['options'] : array();
+
+		return array(array(
+			lang('pt_pill_options', 'pt_pill_options') . '<br /><br />'
+			. lang('option_setting_examples'),
+
+			'<textarea id="pt_pill_options" name="pt_pill_options" rows="6">'.$this->_options_setting($options).'</textarea>'
+		));
+	}
+
+	/**
 	 * Options Setting Value
 	 */
 	private function _options_setting($options)
@@ -168,6 +186,14 @@ class Pt_pill_ft extends EE_Fieldtype {
 		$settings['options'] = $this->_save_options_setting($settings['options']);
 
 		return $settings;
+	}
+
+	/**
+	 * Save Var Settings
+	 */
+	function save_var_settings($settings)
+	{
+		return $this->save_settings($settings);
 	}
 
 	/**
@@ -219,5 +245,13 @@ class Pt_pill_ft extends EE_Fieldtype {
 		$this->_include_theme_js('scripts/matrix2.js');
 
 		return $this->display_field($data, TRUE);
+	}
+
+	/**
+	 * Display variable field
+	 */
+	function display_var_field($data)
+	{
+		return $this->display_field($data);
 	}
 }
