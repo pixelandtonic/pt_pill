@@ -84,7 +84,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 					$LANG->line('field_list_instructions') . '<br /><br />'
 					. $LANG->line('option_setting_examples')
 				),
-			'<textarea id="pt_pill_options" name="options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($data['options']).'</textarea>'
+			'<textarea id="pt_pill_options" name="options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($data).'</textarea>'
 		)));
 
 		return array('rows' => $rows);
@@ -99,7 +99,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 
 		return array(array(
 			$LANG->line('pt_pill_options'),
-			'<textarea class="matrix-textarea" name="options" rows="4">'.$this->_options_setting($data['options']).'</textarea>'
+			'<textarea class="matrix-textarea" name="options" rows="4">'.$this->_options_setting($data).'</textarea>'
 		));
 	}
 
@@ -114,22 +114,23 @@ class Pt_pill extends Fieldframe_Fieldtype {
 			$LANG->line('pt_pill_options') . '<br /><br />'
 			. $LANG->line('option_setting_examples'),
 
-			'<textarea id="pt_pill_options" name="pt_pill_options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($data['options']).'</textarea>'
+			'<textarea id="pt_pill_options" name="pt_pill_options" cols="90" rows="6" style="width: 99%">'.$this->_options_setting($data).'</textarea>'
 		));
 	}
 
 	/**
 	 * Options Setting Value
 	 */
-	private function _options_setting($options)
+	private function _options_setting($settings)
 	{
 		$r = '';
 
-		foreach($options as $name => $label)
+		foreach($settings['options'] as $name => $label)
 		{
 			if ($r !== '') $r .= "\n";
 			$r .= $name;
 			if ($name != $label) $r .= ' : '.$label;
+			if (isset($settings['default']) && $settings['default'] == $name) $r .= ' *';
 		}
 
 		return $r;
@@ -142,9 +143,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	 */
 	function save_field_settings($data)
 	{
-		$data['options'] = $this->_save_options_setting($data['options']);
-
-		return $data;
+		return $this->_save_settings($data['options']);
 	}
 
 	/**
@@ -152,7 +151,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	 */
 	function save_cell_settings($data)
 	{
-		return $this->save_field_settings($data);
+		return $this->_save_settings($data['options']);
 	}
 
 	/**
@@ -162,27 +161,31 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	{
 		global $IN;
 
-		$data['options'] = $IN->GBL('pt_pill_options', 'POST');
+		$options = $IN->GBL('pt_pill_options', 'POST');
 
-		return $this->save_field_settings($data);
+		return $this->_save_settings($options);
 	}
 
 
 	/**
 	 * Save Options Setting
 	 */
-	private function _save_options_setting($options = '')
+	private function _save_settings($options = '')
 	{
-		$r = array();
+		$r = array('options' => array());
 
 		$options = preg_split('/[\r\n]+/', $options);
 		foreach($options as &$option)
 		{
+			// default?
+			if ($default = (substr($option, -1) == '*')) $option = substr($option, 0, -1);
+
 			$option_parts = preg_split('/\s:\s/', $option, 2);
 			$option_name  = (string) trim($option_parts[0]);
-			$option_value = isset($option_parts[1]) ? (string) trim($option_parts[1]) : $option_name;
+			$option_label = isset($option_parts[1]) ? (string) trim($option_parts[1]) : $option_name;
 
-			$r[$option_name] = $option_value;
+			$r['options'][$option_name] = $option_label;
+			if ($default) $r['default'] = $option_name;
 		}
 
 		return $r;
@@ -208,6 +211,9 @@ class Pt_pill extends Fieldframe_Fieldtype {
 		{
 			$this->insert_js('new ptPill(jQuery("#'.$field_id.'"));');
 		}
+
+		// default?	
+		if (! $data && isset($settings['default'])) $data = $settings['default'];
 
 		$SD = new Fieldframe_SettingsDisplay();
 

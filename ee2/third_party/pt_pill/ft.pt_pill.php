@@ -102,14 +102,12 @@ class Pt_pill_ft extends EE_Fieldtype {
 		// load the language file
 		$this->EE->lang->loadfile('pt_pill');
 
-		$options = isset($data['options']) ? $data['options'] : array();
-
 		$this->EE->table->add_row(
 			lang('pt_pill_options', 'pt_pill_options') . '<br />'
 			. lang('field_list_instructions') . '<br /><br />'
 			. lang('option_setting_examples'),
 
-			'<textarea id="pt_pill_options" name="pt_pill_options" rows="6">'.$this->_options_setting($options).'</textarea>'
+			'<textarea id="pt_pill_options" name="pt_pill_options" rows="6">'.$this->_options_setting($data).'</textarea>'
 		);
 	}
 
@@ -121,11 +119,9 @@ class Pt_pill_ft extends EE_Fieldtype {
 		// load the language file
 		$this->EE->lang->loadfile('pt_pill');
 
-		$options = isset($data['options']) ? $data['options'] : array();
-
 		return array(array(
 			lang('pt_pill_options'),
-			'<textarea class="matrix-textarea" name="options" rows="4">'.$this->_options_setting($options).'</textarea>'
+			'<textarea class="matrix-textarea" name="options" rows="4">'.$this->_options_setting($data).'</textarea>'
 		));
 	}
 
@@ -137,28 +133,30 @@ class Pt_pill_ft extends EE_Fieldtype {
 		// load the language file
 		$this->EE->lang->loadfile('pt_pill');
 
-		$options = isset($data['options']) ? $data['options'] : array();
-
 		return array(array(
 			lang('pt_pill_options', 'pt_pill_options') . '<br /><br />'
 			. lang('option_setting_examples'),
 
-			'<textarea id="pt_pill_options" name="pt_pill_options" rows="6">'.$this->_options_setting($options).'</textarea>'
+			'<textarea id="pt_pill_options" name="pt_pill_options" rows="6">'.$this->_options_setting($data).'</textarea>'
 		));
 	}
 
 	/**
 	 * Options Setting Value
 	 */
-	private function _options_setting($options)
+	private function _options_setting($settings)
 	{
 		$r = '';
 
-		foreach($options as $name => $label)
+		if (isset($settings['options']))
 		{
-			if ($r !== '') $r .= "\n";
-			$r .= $name;
-			if ($name != $label) $r .= ' : '.$label;
+			foreach($settings['options'] as $name => $label)
+			{
+				if ($r !== '') $r .= "\n";
+				$r .= $name;
+				if ($name != $label) $r .= ' : '.$label;
+				if (isset($settings['default']) && $settings['default'] == $name) $r .= ' *';
+			}
 		}
 
 		return $r;
@@ -171,11 +169,9 @@ class Pt_pill_ft extends EE_Fieldtype {
 	 */
 	function save_settings($data)
 	{
-		$post = $this->EE->input->post('pt_pill_options');
+		$options = $this->EE->input->post('pt_pill_options');
 
-		return array(
-			'options' => $this->_save_options_setting($post)
-		);
+		return $this->_save_settings($options);
 	}
 
 	/**
@@ -183,9 +179,7 @@ class Pt_pill_ft extends EE_Fieldtype {
 	 */
 	function save_cell_settings($settings)
 	{
-		$settings['options'] = $this->_save_options_setting($settings['options']);
-
-		return $settings;
+		return $this->_save_settings($settings['options']);
 	}
 
 	/**
@@ -193,24 +187,30 @@ class Pt_pill_ft extends EE_Fieldtype {
 	 */
 	function save_var_settings($settings)
 	{
-		return $this->save_settings($settings);
+		$options = $this->EE->input->post('pt_pill_options');
+
+		return $this->_save_settings($options);
 	}
 
 	/**
-	 * Save Options Setting
+	 * Save Settings
 	 */
-	private function _save_options_setting($options = '')
+	private function _save_settings($options = '')
 	{
-		$r = array();
+		$r = array('options' => array());
 
 		$options = preg_split('/[\r\n]+/', $options);
 		foreach($options as &$option)
 		{
+			// default?
+			if ($default = (substr($option, -1) == '*')) $option = substr($option, 0, -1);
+
 			$option_parts = preg_split('/\s:\s/', $option, 2);
 			$option_name  = (string) trim($option_parts[0]);
-			$option_value = isset($option_parts[1]) ? (string) trim($option_parts[1]) : $option_name;
+			$option_label = isset($option_parts[1]) ? (string) trim($option_parts[1]) : $option_name;
 
-			$r[$option_name] = $option_value;
+			$r['options'][$option_name] = $option_label;
+			if ($default) $r['default'] = $option_name;
 		}
 
 		return $r;
@@ -233,6 +233,9 @@ class Pt_pill_ft extends EE_Fieldtype {
 		{
 			$this->_insert_js('new ptPill(jQuery("#'.$field_id.'"));');
 		}
+
+		// default?	
+		if (! $data && isset($this->settings['default'])) $data = $this->settings['default'];
 
 		return form_dropdown($field_name, $this->settings['options'], $data, 'id="'.$field_id.'"');
 	}
