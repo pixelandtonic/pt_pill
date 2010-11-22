@@ -239,4 +239,17 @@ class Pt_pill extends Fieldframe_Fieldtype {
 	{
 		return $this->display_field($cell_name, $data, $settings);
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Label tag
+	 */
+	function label($params, $tagdata, $data, $settings)
+	{
+		if (isset($settings['options'][$data]))
+		{
+			return $settings['options'][$data];
+		}
+	}
 }

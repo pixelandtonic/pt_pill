@@ -257,4 +257,17 @@ class Pt_pill_ft extends EE_Fieldtype {
 	{
 		return $this->display_field($data);
 	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Label tag
+	 */
+	function replace_label($data, $params = array(), $tagdata = FALSE)
+	{
+		if (isset($this->settings['options'][$data]))
+		{
+			return $this->settings['options'][$data];
+		}
+	}
 }
