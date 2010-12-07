@@ -1,11 +1,11 @@
 <?php if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-if (! defined('PT_SWITCH_VER'))
+if (! defined('PT_PILL_VER'))
 {
 	// get the version from config.php
 	require PATH_THIRD.'pt_pill/config.php';
-	define('PT_SWITCH_VER',  $config['version']);
+	define('PT_PILL_VER',  $config['version']);
 }
 
 
@@ -20,7 +20,7 @@ class Pt_pill_ft extends EE_Fieldtype {
 
 	var $info = array(
 		'name'    => 'P&amp;T Pill',
-		'version' => PT_SWITCH_VER
+		'version' => PT_PILL_VER
 	);
 
 	/**
