@@ -1,12 +1,7 @@
 <?php if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 
-if (! defined('PT_PILL_VER'))
-{
-	// get the version from config.php
-	require PATH_THIRD.'pt_pill/config.php';
-	define('PT_PILL_VER',  $config['version']);
-}
+require_once PATH_THIRD.'pt_pill/config.php';
 
 
 /**
