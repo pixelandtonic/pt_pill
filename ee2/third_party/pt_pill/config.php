@@ -3,7 +3,7 @@
 if (! defined('PT_PILL_NAME'))
 {
 	define('PT_PILL_NAME', 'P&amp;T Pill');
-	define('PT_PILL_VER',  '1.0.2.1');
+	define('PT_PILL_VER',  '1.0.3');
 }
 
 $config['name']    = PT_PILL_NAME;
