@@ -9,7 +9,7 @@ require_once PATH_THIRD.'pt_pill/config.php';
  *
  * @package   P&T Pill
  * @author    Brandon Kelly <brandon@pixelandtonic.com>
- * @copyright Copyright (c) 2010 Pixel & Tonic, LLC
+ * @copyright Copyright (c) 2011 Pixel & Tonic, Inc
  */
 class Pt_pill_ft extends EE_Fieldtype {
 
