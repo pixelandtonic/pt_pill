@@ -149,7 +149,7 @@ class Pt_pill_ft extends EE_Fieldtype {
 			{
 				if ($r !== '') $r .= "\n";
 				$r .= $name;
-				if ($name != $label) $r .= ' : '.$label;
+				if ( (string) $name !== (string) $label ) $r .= ' : '.$label;
 				if (isset($settings['default']) && $settings['default'] == $name) $r .= ' *';
 			}
 		}
