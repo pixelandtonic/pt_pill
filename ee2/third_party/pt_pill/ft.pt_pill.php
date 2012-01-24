@@ -45,9 +45,8 @@ class Pt_pill_ft extends EE_Fieldtype {
 	{
 		if (! isset($this->cache['theme_url']))
 		{
-			$theme_folder_url = $this->EE->config->item('theme_folder_url');
-			if (substr($theme_folder_url, -1) != '/') $theme_folder_url .= '/';
-			$this->cache['theme_url'] = $theme_folder_url.'third_party/pt_pill/';
+			$theme_folder_url = defined('URL_THIRD_THEMES') ? URL_THIRD_THEMES : $this->EE->config->slash_item('theme_folder_url').'third_party/';
+			$this->cache['theme_url'] = $theme_folder_url.'pt_pill/';
 		}
 
 		return $this->cache['theme_url'];
