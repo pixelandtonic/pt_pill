@@ -148,7 +148,7 @@ class Pt_pill_ft extends EE_Fieldtype {
 			{
 				if ($r !== '') $r .= "\n";
 				$r .= $name;
-				if ($name != $label) $r .= ' : '.$label;
+				if ($name !== $label) $r .= ' : '.$label;
 				if (isset($settings['default']) && $settings['default'] == $name) $r .= ' *';
 			}
 		}
@@ -228,7 +228,7 @@ class Pt_pill_ft extends EE_Fieldtype {
 			$this->_insert_js('new ptPill(jQuery("#'.$field_id.'"));');
 		}
 
-		// default?	
+		// default?
 		if (! $data && isset($this->settings['default'])) $data = $this->settings['default'];
 
 		return form_dropdown($field_name, $this->settings['options'], $data, 'id="'.$field_id.'"');

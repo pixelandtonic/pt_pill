@@ -129,7 +129,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 		{
 			if ($r !== '') $r .= "\n";
 			$r .= $name;
-			if ($name != $label) $r .= ' : '.$label;
+			if ($name !== $label) $r .= ' : '.$label;
 			if (isset($settings['default']) && $settings['default'] == $name) $r .= ' *';
 		}
 
@@ -212,7 +212,7 @@ class Pt_pill extends Fieldframe_Fieldtype {
 			$this->insert_js('new ptPill(jQuery("#'.$field_id.'"));');
 		}
 
-		// default?	
+		// default?
 		if (! $data && isset($settings['default'])) $data = $settings['default'];
 
 		$SD = new Fieldframe_SettingsDisplay();
