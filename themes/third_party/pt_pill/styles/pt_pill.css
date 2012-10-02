@@ -13,4 +13,7 @@ ul.pt-pill li.selected { background: #fff; position: relative; z-index: 1; text-
 	-webkit-box-shadow: inset 0 1px rgba(0,0,0,0.1);
 	-moz-box-shadow: inset 0 1px rgba(0,0,0,0.1); }
 
+ul.pt-pill-disabled { opacity: 0.5; }
+ul.pt-pill-disabled li { cursor: default; }
+
 .matrix ul.pt-pill { margin: 0; }

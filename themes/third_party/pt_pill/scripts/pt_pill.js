@@ -14,9 +14,11 @@ ptPill = function($select){
 
 	$select.hide();
 
+	var $disabled = $select.attr('disabled') == 'disabled' ? ' pt-pill-disabled' : '';
+
 	var obj = this,
 		$options = $('option', $select),
-		$ul = $('<ul class="pt-pill" tabindex="0" />').insertAfter($select),
+		$ul = $('<ul class="pt-pill'+ $disabled +'" tabindex="0" />').insertAfter($select),
 		$selected;
 
 	$options.each(function(index){
@@ -26,19 +28,22 @@ ptPill = function($select){
 		// prevent focus on click
 		$li.mousedown(function(event){ event.preventDefault(); });
 
-		$li.click(function(event, testing){
-			if ($li == $selected) return;
+		if ($disabled == '') {
+			$li.click(function(event, testing){
+				if ($li == $selected) return;
 
-			if ($selected) {
-				$selected.removeClass('selected');
-				$select.val($option.val()).change();
-			}
+				if ($selected) {
+					$selected.removeClass('selected');
+					$select.val($option.val()).change();
+				}
 
-			$selected = $li.addClass('selected');
-		});
+				$selected = $li.addClass('selected');
+			});
+		}
 
 		if ($option.attr('selected')) {
 			$li.click();
+			$li.addClass('selected');
 		}
 	});
 
